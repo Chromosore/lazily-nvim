@@ -7,6 +7,7 @@ local function normalize(spec)
 				error(("Cannot use both %s and %s"):format(field, field .. "s"))
 			else
 				spec[field .. "s"] = { spec[field] }
+				spec[field] = nil
 			end
 		end
 	end

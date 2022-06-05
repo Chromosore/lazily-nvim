@@ -10,17 +10,17 @@ local function use(package, spec)
 		requires = spec.requires;
 	}
 
-	if spec.autocmd then
-		local autocmd = spec.autocmd
-
-		lazyspec.autocmd = vim.api.nvim_create_autocmd(autocmd.event, {
-			pattern = autocmd.pattern;
-			callback = function(event)
-				if not autocmd.filter or autocmd.filter(event) then
-					lazily.load(package)
-				end
-			end;
-		})
+	if spec.autocmds then
+		lazyspec.autocmds = vim.tbl_map(function(autocmd)
+			return vim.api.nvim_create_autocmd(autocmd.event, {
+				pattern = autocmd.pattern;
+				callback = function(event)
+					if not autocmd.filter or autocmd.filter(event) then
+						lazily.load(package)
+					end
+				end;
+			})
+		end, spec.autocmds)
 	end
 
 	lazily.pending[package] = {
