@@ -1,0 +1,72 @@
+*lazily.txt*	A standalone plugin lazy loader for Neovim
+
+1. Introduction  .............................:	|lazily|
+2. Reference  ................................:	|lazily-functions|
+3. License  ..................................: |lazily-license|
+
+
+==============================================================================
+1. Introduction					*lazily*
+
+	Lazily is a standalone plugin lazy loader. It is meant to be used with
+	lightweight plugin manager or even vim8 packages.
+
+	Lazily handles setting up the lazy-loading triggers and removing them
+	once a plugin is loaded or canceled. It also keeps track of the
+	plugins that were loaded so as to load them only once.
+
+
+==============================================================================
+2. Reference					*lazily-functions*
+
+lazily.setup({args})				*lazily.setup()*
+	Parameters: ~
+		{args}	table of options passed to the module
+			• load (function|nil) The function used to
+			  load the package
+
+
+lazily.use({package}, {spec})			*lazily.use()*
+	Set up lazy-loading triggers for {package}.
+	All the triggers of {spec} accept a plural form that takes an array of
+	triggers. Only one form can be specified.
+
+	Parameters: ~
+		{spec}	Table containing lazy-loading triggers
+			• autocmd (table|nil)
+			  • event (string|array): See |autocmd-events|.
+			  • pattern (string|array): See |autocmd-pattern|.
+			  • filter (function|nil): Callback that specify if
+			    the package should be loaded.
+			    It takes the same arguments as the callback passed
+			    to |nvim_create_autocmd()|.
+			• autocmds (array|nil)
+			  Array version of the autocmd trigger.
+
+lazily.load({package})				*lazily.load()*
+	Ensure that {package} is loaded.
+	If {package} is already loaded, this doesn't do anything.
+
+lazily.cancel({package})			*lazily.cancel()*
+	Remove the lazy-loading triggers for {package}.
+	If {package} is already loaded, this is a no-op.
+
+
+lazily.packadd({package})			*lazily.packadd()*
+	Wrapper around |:packadd|.
+
+lazily.pathadd({path})				*lazily.pathadd()*
+	Returns a function that takes a {package} and loads it if it exists
+	under {path}.
+
+
+==============================================================================
+3. License					*lazily-license*
+
+	Lazily is licensed under the Mozilla Public License 2.0 (MLP-2.0).
+
+	See http://www.mozilla.org/en-US/MPL/2.0/
+
+
+==============================================================================
+vim:tw=78:ts=8:ft=help
