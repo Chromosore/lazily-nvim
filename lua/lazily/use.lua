@@ -1,6 +1,9 @@
 local lazily = require("lazily")
+local normalize = require("lazily.utils.normalize")
 
 local function use(package, spec)
+	spec = normalize(spec)
+
 	local lazyspec = {}
 	local loadspec = {
 		package = package;
