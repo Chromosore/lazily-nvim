@@ -12,7 +12,7 @@ local function load(package)
 		end
 	end
 
-	lazily.packadd(package)
+	lazily.opts.load(package)
 end
 
 return load

@@ -14,4 +14,16 @@ setmetatable(M, {
 
 M.pending = {}
 
+M.opts = {
+	load = M.packadd;
+}
+
+function M.setup(opts)
+	vim.validate {
+		load = { opts.load, "function" };
+	}
+
+	M.opts = vim.tbl_extend("force", M.opts, opts)
+end
+
 return M
