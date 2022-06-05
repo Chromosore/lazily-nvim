@@ -18,27 +18,27 @@ local lazily = require("lazily")
 
 -- This is optional. Use it to specify extra options.
 lazily.setup{
-	-- Default uses vim8 packages. This works with minpac and paq
-	load = lazily.packadd;
-	-- To search packages in a specified directory use
-	load = lazily.pathadd(vim.fn.stdpath("data") .. "/pluggins");
-	-- To use it with packer (though why would you do that?)
-	load = packer.use;
+    -- Default uses vim8 packages. This works with minpac and paq
+    load = lazily.packadd;
+    -- To search packages in a specified directory use
+    load = lazily.pathadd(vim.fn.stdpath("data") .. "/pluggins");
+    -- To use it with packer (though why would you do that?)
+    load = packer.use;
 }
 
 lazily.use("my-plugin", {
-	autocmd = {
-		event = {"BufEnter", "BufNew"};
-		pattern = "*";
-		filter = function(event)
-			return vim.fn.isdirectory(event.match) == 1
-		end;
-	},
-	command = "MyPlugin",
-	mapping = {"n", "<leader>mp"},
-	requires = {
-		"my-other-plugin",
-	},
+    autocmd = {
+        event = {"BufEnter", "BufNew"};
+        pattern = "*";
+        filter = function(event)
+            return vim.fn.isdirectory(event.match) == 1
+        end;
+    },
+    command = "MyPlugin",
+    mapping = {"n", "<leader>mp"},
+    requires = {
+        "my-other-plugin",
+    },
 })
 
 -- To ensure the plugin is loaded, use
