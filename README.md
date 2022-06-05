@@ -4,7 +4,7 @@ A standalone plugin lazy loader.
 
 ## Overview
 
-Lazily is one third[1] of a full package manager: it only does lazy loading
+Lazily is one third[^1] of a full package manager: it only does lazy loading
 of the plugins. This plugin is intended for use with lightweight package
 managers such as [minpac] or [paq], or even native vim packages.
 
@@ -51,6 +51,7 @@ lazily.cancel("my-plugin")
 See `:help lazily` for more informations.
 
 
-[1]: The three thirds are downloading, loading and lazy-loading.
+[^1]: The three thirds are downloading, loading and lazy-loading.
+
 [paq]: https://github.com/savq/paq-nvim/
 [minpac]: https://github.com/k-takata/minpac
