@@ -1,18 +1,10 @@
 local lazily = require("lazily")
 
-local function load(spec)
-	if type(spec) == "string" then
-		local package = spec
-		if lazily.pending[package] then
-			spec = lazily.pending[package].spec
-			lazily.cancel(package)
-		else
-			spec = { package = package }
-		end
-	end
+local function load(package)
+	if not lazily.pending[package] then return end
 
-	local package = spec.package or spec[1]
-	if lazily.loaded[package] then return end
+	local spec = lazily.pending[package].spec
+	lazily.cancel(package)
 
 	if spec.requires then
 		for _, dependency in ipairs(spec.requires) do
@@ -21,7 +13,6 @@ local function load(spec)
 	end
 
 	lazily.packadd(package)
-	lazily.loaded[package] = true
 end
 
 return load

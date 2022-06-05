@@ -13,6 +13,5 @@ setmetatable(M, {
 })
 
 M.pending = {}
-M.loaded = {}
 
 return M
