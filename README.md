@@ -21,7 +21,7 @@ lazily.setup{
     -- Default uses vim8 packages. This works with minpac and paq
     load = lazily.packadd;
     -- To search packages in a specified directory use
-    load = lazily.pathadd(vim.fn.stdpath("data") .. "/pluggins");
+    load = lazily.pathadd(vim.fn.stdpath("data") .. "/plugins");
     -- To use it with packer (though why would you do that?)
     load = packer.use;
 }
@@ -48,7 +48,7 @@ lazily.load("my-plugin")
 lazily.cancel("my-plugin")
 ```
 
-See `:help lazyli` for more informations.
+See `:help lazily` for more informations.
 
 
 [1]: The three thirds are downloading, loading and lazy-loading.
