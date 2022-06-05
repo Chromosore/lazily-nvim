@@ -14,7 +14,7 @@ local function use(package, spec)
 			pattern = autocmd.pattern;
 			callback = function(event)
 				if not autocmd.filter or autocmd.filter(event) then
-					lazily.add(package)
+					lazily.load(package)
 				end
 			end;
 		})
