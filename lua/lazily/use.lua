@@ -23,6 +23,33 @@ local function use(package, spec)
 		end, spec.autocmds)
 	end
 
+	if spec.commands then
+		lazyspec.commands = vim.tbl_map(function(command)
+			vim.api.nvim_create_user_command(command, function(args)
+				lazily.load(package)
+
+				local range =
+					args.range == 0
+						and ""
+					or args.range == 1
+						and ("%d"):format(args.line1)
+					or  args.range == 2
+						and ("%d,%d"):format(args.line1, args.line2)
+					or  (","):rep(args.range - 2)
+						.. ("%d,%d"):format(args.line1, args.line2)
+
+				vim.api.nvim_command(("%s%s%s %s"):format(
+					range, command, args.bang and "!" or "", args.args))
+			end, {
+				range = true;
+				bang = true;
+				nargs = "*";
+			})
+
+			return command
+		end, spec.commands)
+	end
+
 	lazily.pending[package] = {
 		spec = loadspec;
 		lazy = lazyspec;

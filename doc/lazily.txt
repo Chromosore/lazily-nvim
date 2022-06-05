@@ -42,6 +42,12 @@ lazily.use({package}, {spec})			*lazily.use()*
 			    to |nvim_create_autocmd()|.
 			• autocmds (array|nil)
 			  Array version of the autocmd trigger.
+			• command (string|nil)
+			  A command that loads the package when executed.
+			  All the arguments, range and bangs are passed to the
+			  package's command.
+			• commands (array|nil)
+			  Array version of the command trigger.
 
 lazily.load({package})				*lazily.load()*
 	Ensure that {package} is loaded.

@@ -10,6 +10,12 @@ local function cancel(package)
 		end
 	end
 
+	if lazyspec.commands then
+		for _, command in ipairs(lazyspec.commands) do
+			vim.api.nvim_del_user_command(command)
+		end
+	end
+
 	lazily.pending[package] = nil
 end
 
