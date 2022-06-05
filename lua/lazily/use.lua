@@ -50,6 +50,20 @@ local function use(package, spec)
 		end, spec.commands)
 	end
 
+	if spec.mappings then
+		lazyspec.mappings = vim.tbl_map(function(mapping)
+			local mode, lhs = unpack(mapping)
+			vim.keymap.set(mode, lhs, function()
+				lazily.load(package)
+				vim.api.nvim_feedkeys(
+					vim.api.nvim_replace_termcodes(lhs, true, true, true),
+					"mt", false)
+			end)
+
+			return mapping
+		end, spec.mappings)
+	end
+
 	lazily.pending[package] = {
 		spec = loadspec;
 		lazy = lazyspec;

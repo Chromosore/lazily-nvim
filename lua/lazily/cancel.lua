@@ -16,6 +16,13 @@ local function cancel(package)
 		end
 	end
 
+	if lazyspec.mappings then
+		for _, mapping in ipairs(lazyspec.mappings) do
+			local mode, lhs = unpack(mapping)
+			vim.keymap.del(mode, lhs)
+		end
+	end
+
 	lazily.pending[package] = nil
 end
 

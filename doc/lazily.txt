@@ -48,6 +48,13 @@ lazily.use({package}, {spec})			*lazily.use()*
 			  package's command.
 			• commands (array|nil)
 			  Array version of the command trigger.
+			• mapping (array|nil)
+			  An array of the form { {mode}, {lhs} }.
+			  A mapping that loads the plugin.
+			  The mapping is triggered again so as to trigger any
+			  mapping provided by the package.
+			• commands (array|nil)
+			  Array version of the mapping trigger.
 
 lazily.load({package})				*lazily.load()*
 	Ensure that {package} is loaded.
