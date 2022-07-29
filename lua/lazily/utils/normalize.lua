@@ -1,5 +1,5 @@
 local function normalize(spec)
-	local spec = vim.deepcopy(spec)
+	spec = vim.deepcopy(spec)
 
 	for _, field in ipairs({"autocmd", "command", "mapping"}) do
 		if spec[field] then
