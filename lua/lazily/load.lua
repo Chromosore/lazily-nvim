@@ -8,7 +8,13 @@ local function load(package)
 
 	if spec.requires then
 		for _, dependency in ipairs(spec.requires) do
-			load(dependency)
+			if lazily.pending[dependency] then
+				-- load package scheduled for lazy loading
+				load(dependency)
+			else
+				-- load regular package
+				lazily.opts.load(dependency)
+			end
 		end
 	end
 
