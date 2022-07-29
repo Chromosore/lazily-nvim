@@ -2,16 +2,12 @@ local lazily = require("lazily")
 local normalize = require("lazily.utils.normalize")
 
 local function use(package, spec)
+	-- rely on normalize copying spec
 	spec = normalize(spec)
-
-	local lazyspec = {}
-	local loadspec = {
-		package = package;
-		requires = spec.requires;
-	}
+	spec.package = package
 
 	if spec.autocmds then
-		lazyspec.autocmds = vim.tbl_map(function(autocmd)
+		spec.autocmds = vim.tbl_map(function(autocmd)
 			return vim.api.nvim_create_autocmd(autocmd.event, {
 				pattern = autocmd.pattern;
 				callback = function(event)
@@ -24,7 +20,7 @@ local function use(package, spec)
 	end
 
 	if spec.commands then
-		lazyspec.commands = vim.tbl_map(function(command)
+		spec.commands = vim.tbl_map(function(command)
 			vim.api.nvim_create_user_command(command, function(args)
 				lazily.load(package)
 
@@ -51,7 +47,7 @@ local function use(package, spec)
 	end
 
 	if spec.mappings then
-		lazyspec.mappings = vim.tbl_map(function(mapping)
+		spec.mappings = vim.tbl_map(function(mapping)
 			local mode, lhs = unpack(mapping)
 			vim.keymap.set(mode, lhs, function()
 				lazily.load(package)
@@ -64,10 +60,7 @@ local function use(package, spec)
 		end, spec.mappings)
 	end
 
-	lazily.pending[package] = {
-		spec = loadspec;
-		lazy = lazyspec;
-	}
+	lazily.pending[package] = spec
 end
 
 return use

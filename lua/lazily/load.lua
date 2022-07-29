@@ -3,7 +3,7 @@ local lazily = require("lazily")
 local function load(package)
 	if not lazily.pending[package] then return end
 
-	local spec = lazily.pending[package].spec
+	local spec = lazily.pending[package]
 	lazily.cancel(package)
 
 	if spec.requires then

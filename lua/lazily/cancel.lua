@@ -2,22 +2,22 @@ local lazily = require("lazily")
 
 local function cancel(package)
 	if not lazily.pending[package] then return end
-	local lazyspec = lazily.pending[package].lazy
+	local spec = lazily.pending[package]
 
-	if lazyspec.autocmds then
-		for _, autocmd in ipairs(lazyspec.autocmds) do
+	if spec.autocmds then
+		for _, autocmd in ipairs(spec.autocmds) do
 			vim.api.nvim_del_autocmd(autocmd)
 		end
 	end
 
-	if lazyspec.commands then
-		for _, command in ipairs(lazyspec.commands) do
+	if spec.commands then
+		for _, command in ipairs(spec.commands) do
 			vim.api.nvim_del_user_command(command)
 		end
 	end
 
-	if lazyspec.mappings then
-		for _, mapping in ipairs(lazyspec.mappings) do
+	if spec.mappings then
+		for _, mapping in ipairs(spec.mappings) do
 			local mode, lhs = unpack(mapping)
 			vim.keymap.del(mode, lhs)
 		end
