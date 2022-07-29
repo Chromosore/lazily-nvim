@@ -61,6 +61,7 @@ local function use(package, spec)
 	end
 
 	lazily.pending[package] = spec
+	return spec
 end
 
 return use
