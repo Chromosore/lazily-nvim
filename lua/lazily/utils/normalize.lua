@@ -1,3 +1,15 @@
+local function ensure_tbl(item)
+	if type(item) == "table" then
+		return item
+	end
+	return { item }
+end
+
+local aliases = {
+	cmd = "command",
+	keys = "mapping",
+}
+
 local function normalize(spec)
 	spec = vim.deepcopy(spec)
 
@@ -11,6 +23,9 @@ local function normalize(spec)
 			end
 		end
 	end
+
+	-- if spec.cmd then
+	-- end
 
 	return spec
 end
