@@ -6,6 +6,10 @@ local function load(package)
 	local spec = lazily.pending[package]
 	lazily.cancel(package)
 
+	if spec.setup then
+		for _, hook in ipairs(spec.setup) do hook() end
+	end
+
 	if spec.requires then
 		for _, dependency in ipairs(spec.requires) do
 			if lazily.pending[dependency] then
@@ -19,6 +23,10 @@ local function load(package)
 	end
 
 	lazily.opts.load(package)
+
+	if spec.config then
+		for _, hook in ipairs(spec.config) do hook() end
+	end
 end
 
 return load
