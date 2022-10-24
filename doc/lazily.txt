@@ -80,10 +80,6 @@ lazily.cancel({package})			*lazily.cancel()*
 lazily.packadd({package})			*lazily.packadd()*
 	Wrapper around |:packadd|.
 
-lazily.pathadd({path})				*lazily.pathadd()*
-	Returns a function that takes a {package} and loads it if it exists
-	under {path}.
-
 
 ==============================================================================
 3. License					*lazily-license*
