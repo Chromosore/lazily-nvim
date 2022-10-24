@@ -4,7 +4,7 @@ A standalone plugin lazy loader.
 
 ## Overview
 
-Lazily is one third[^1] of a full package manager: it only does lazy loading
+Lazily is one third[^1] of a full plugin manager: it only does lazy loading
 of the plugins. This plugin is intended for use with lightweight package
 managers such as [minpac] or [paq], or even native vim packages.
 
@@ -18,12 +18,12 @@ local lazily = require("lazily")
 
 -- This is optional. Use it to specify extra options.
 lazily.setup{
-    -- Default uses vim8 packages. This works with minpac and paq
+    -- Default uses vim8 packages. This works with minpac, paq, packer and
+    -- most modern plugin managers
     load = lazily.packadd;
-    -- To search packages in a specified directory use
-    load = lazily.pathadd(vim.fn.stdpath("data") .. "/plugins");
-    -- To use it with packer (though why would you do that?)
-    load = packer.use;
+
+    -- To load packages using an external function use e.g.
+    load = my_plugin_store.load;
 }
 
 lazily.use("my-plugin", {
